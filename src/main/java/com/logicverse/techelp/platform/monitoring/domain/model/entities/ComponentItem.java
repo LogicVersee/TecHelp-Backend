@@ -1,10 +1,11 @@
-package com.logicverse.techelp.platform.repairing.domain.model.entities;
+package com.logicverse.techelp.platform.monitoring.domain.model.entities;
 
+import com.logicverse.techelp.platform.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
-public class Component {
+public class ComponentItem extends AuditableModel {
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,13 +16,13 @@ public class Component {
     @ManyToOne
     private DashBoard dashBoard;
 
-    public Component(String name, Long quantity, double price){
+    public ComponentItem(String name, Long quantity, double price){
         this.name = name;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public Component(){}
+    public ComponentItem(){}
 
     public void updateComponent(String name, Long quantity, double price){
         this.name = name;
