@@ -10,16 +10,20 @@ public class ComponentItem extends AuditableModel {
     @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Getter
     private String name;
+    @Getter
     private Long quantity;
+    @Getter
     private double price;
     @ManyToOne
     private DashBoard dashBoard;
 
-    public ComponentItem(String name, Long quantity, double price){
+    public ComponentItem(String name, Long quantity, double price, DashBoard dashBoard){
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+        this.dashBoard = dashBoard;
     }
 
     public ComponentItem(){}

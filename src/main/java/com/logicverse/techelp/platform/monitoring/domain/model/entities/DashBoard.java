@@ -1,7 +1,6 @@
 package com.logicverse.techelp.platform.monitoring.domain.model.entities;
 
 import com.logicverse.techelp.platform.monitoring.domain.model.valueobjects.Inventory;
-import com.logicverse.techelp.platform.monitoring.domain.model.valueobjects.Revenue;
 import com.logicverse.techelp.platform.monitoring.domain.model.valueobjects.TechnicianId;
 import com.logicverse.techelp.platform.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.*;
@@ -16,6 +15,7 @@ public class DashBoard extends AuditableModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Embedded
+    @Getter
     private TechnicianId technicianId;
 
     @Embedded

@@ -1,4 +1,4 @@
-package com.logicverse.techelp.platform.monitoring.domain.model.valueobjects;
+package com.logicverse.techelp.platform.monitoring.domain.model.entities;
 
 import com.logicverse.techelp.platform.monitoring.domain.model.entities.DashBoard;
 import jakarta.persistence.*;
