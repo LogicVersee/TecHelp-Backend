@@ -13,7 +13,7 @@ public record ClientPhoneName(String client_phone) {
         }
     }
 
-    public String getClientName() {
+    public String getClientPhoneName() {
         return String.format("%s", client_phone);
     }
 }
