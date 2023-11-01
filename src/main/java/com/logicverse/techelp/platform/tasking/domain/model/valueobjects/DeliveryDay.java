@@ -1,7 +1,9 @@
 package com.logicverse.techelp.platform.tasking.domain.model.valueobjects;
 
-import java.util.Date;
+import jakarta.persistence.Embeddable;
 
+import java.util.Date;
+@Embeddable
 public record DeliveryDay(Date delivery_day) {
     public DeliveryDay(){this(null);}
 
