@@ -1,12 +1,15 @@
 package com.logicverse.techelp.platform.tasking.domain.services;
 
+
 import com.logicverse.techelp.platform.tasking.domain.model.entities.Task;
-import com.logicverse.techelp.platform.tasking.domain.model.queries.GetTaskByTechnicalIdQuery;
+import com.logicverse.techelp.platform.tasking.domain.model.queries.GetTaskByIdQuery;
 
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TaskQueryService {
 
-    Optional<Task> handle(GetTaskByTechnicalIdQuery query);
+    Optional<Task> handle(GetTaskByIdQuery query);
+    List<Task> handle();
 }
