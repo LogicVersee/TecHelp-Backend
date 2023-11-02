@@ -1,7 +1,4 @@
 package com.logicverse.techelp.platform.tasking.domain.model.entities;
-import com.logicverse.techelp.platform.monitoring.domain.model.entities.ComponentItem;
-import com.logicverse.techelp.platform.repairing.domain.model.valueobjects.EmailAddress;
-import com.logicverse.techelp.platform.repairing.domain.model.valueobjects.PersonName;
 import com.logicverse.techelp.platform.shared.domain.model.entities.AuditableModel;
 import com.logicverse.techelp.platform.tasking.domain.model.valueobjects.ClientName;
 import com.logicverse.techelp.platform.tasking.domain.model.valueobjects.ClientPhoneName;
@@ -10,9 +7,9 @@ import com.logicverse.techelp.platform.tasking.domain.model.valueobjects.Deliver
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.lang.reflect.Array;
+
 import java.util.Date;
-import java.util.function.LongFunction;
+
 
 @Entity
 public class Task extends AuditableModel {
@@ -62,5 +59,5 @@ public class Task extends AuditableModel {
         return this.problem.getClientProblem();
     }
 
-    public  String getDeliveryDay(){ return  this.deliveryDay.getDeliveryDay();}
+    public  String getDeliveryDate(){ return  this.deliveryDay.getDeliveryDay();}
 }
