@@ -28,6 +28,7 @@ public class Task extends AuditableModel {
     private ClientProblem problem;
 
     @Embedded
+    @Getter
     private String[] componentItem;
 
     @Getter
@@ -59,5 +60,7 @@ public class Task extends AuditableModel {
         return this.problem.getClientProblem();
     }
 
-    public  String getDeliveryDate(){ return  this.deliveryDay.getDeliveryDay();}
+    public Date getDeliveryDate(){ return  this.deliveryDay.getDeliveryDay();}
+
+
 }
