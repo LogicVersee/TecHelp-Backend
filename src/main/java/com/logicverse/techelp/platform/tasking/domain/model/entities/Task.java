@@ -29,7 +29,7 @@ public class Task extends AuditableModel {
 
     @Embedded
     @Getter
-    private String[] componentItem;
+    private String componentItem;
 
     @Getter
     private DeliveryDay deliveryDay;
@@ -37,7 +37,7 @@ public class Task extends AuditableModel {
     @Getter
     private String income;
 
-    public Task(String client_name, String client_phone, String problem, String[] component, Date delivery_date, String income){
+    public Task(String client_name, String client_phone, String problem, String component, Date delivery_date, String income){
         this.componentItem =component;
         this.name = new ClientName(client_name);
         this.clientphone = new ClientPhoneName(client_phone);

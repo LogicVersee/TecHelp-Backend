@@ -1,13 +1,12 @@
 package com.logicverse.techelp.platform.tasking.interfaces.rest;
 
-import com.logicverse.techelp.platform.repairing.domain.model.queries.GetTechnicalByIdQuery;
-import com.logicverse.techelp.platform.repairing.interfaces.rest.resources.TechnicalResource;
-import com.logicverse.techelp.platform.repairing.interfaces.rest.transform.TechnicalResourceFromEntityAssembler;
+import com.logicverse.techelp.platform.tasking.domain.model.queries.GetTaskByIdQuery;
 import com.logicverse.techelp.platform.tasking.domain.services.TaskCommandService;
 import com.logicverse.techelp.platform.tasking.domain.services.TaskQueryService;
 import com.logicverse.techelp.platform.tasking.interfaces.rest.resources.CreateTaskResource;
 import com.logicverse.techelp.platform.tasking.interfaces.rest.resources.TaskResource;
 import com.logicverse.techelp.platform.tasking.interfaces.rest.transform.CreateTaskFromResourceAssembler;
+import com.logicverse.techelp.platform.tasking.interfaces.rest.transform.TaskResourceFromEntityAssembler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,22 +29,22 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<TaskResource> createTask(@RequestBody CreateTaskResource resource) {
         var command = CreateTaskFromResourceAssembler.toCommandFrom(resource);
-        var taskId = TaskCommandService.handle(command);
+        var taskId = taskCommandService.handle(command);
 
-        var query = new GetTechnicalByIdQuery(taskId);
-        var technicalByQuery = taskQueryService.handle(query);
+        var query = new GetTaskByIdQuery(taskId);
+        var taskByQuery = taskQueryService.handle(query);
 
-        var technicalResource = TechnicalResourceFromEntityAssembler.toResourceFromEntity(technicalByQuery.get());
-        return new ResponseEntity<>(technicalResource, HttpStatus.CREATED);
+        var taskResource = TaskResourceFromEntityAssembler.toResourceFromEntity(taskByQuery.get());
+        return new ResponseEntity<>(taskResource, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<Stream<TechnicalResource>> getTechnicals() {
-        var technicals = technicalQueryService.handle();
-        if (technicals.isEmpty()) return ResponseEntity.badRequest().build();
-        var technicalsResource = technicals.stream().map(technical -> {
-            return TechnicalResourceFromEntityAssembler.toResourceFromEntity(technical);
+    public ResponseEntity<Stream<TaskResource>> getTasks() {
+        var tasks = taskQueryService.handle();
+        if (tasks.isEmpty()) return ResponseEntity.badRequest().build();
+        var tasksResource = tasks.stream().map(task -> {
+            return TaskResourceFromEntityAssembler.toResourceFromEntity(task);
         });
-        return ResponseEntity.ok(technicalsResource);
+        return ResponseEntity.ok(tasksResource);
     }
 }

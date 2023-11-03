@@ -9,7 +9,7 @@ public record TaskResource(
 
         String problem,
 
-        String[] component,
+        String component,
 
         Date delivery_date,
 
