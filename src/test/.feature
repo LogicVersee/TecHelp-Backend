@@ -1,0 +1,20 @@
+Feature: Technicals Adding
+  As a Developer
+  I want to add Technicals through API
+  So that It can be available to applications.
+
+  Background:
+    Given The Endpoint "https://techelp-api.zeabur.app/api/v1/technicals" is available
+
+  @technical-adding
+  Scenario: Add Technical
+    When A Post Request is sent with values "Jorge", "Diaz", "948383823","Paruro 114", "Lima", "5", "SGVsbG8sIHlvd5B3b3JsZCE=", "jorge@techelp.com", "Lima", "Tecnico de iPhones"
+    Then A Response is received with Status 200
+    And An Technical Resource is included in Response Body, with values "Jorge Diaz", "Paruro 114", "Lima", "5", "SGVsbG8sIHlvd5B3b3JsZCE=", "Tecnico de iPhones"
+
+  @technical-duplicated
+  Scenario: Add Technical with existing Name
+    Given An Technicals Resource with values "Jorge", "Diaz", "948383823", "Paruro 114", "Lima", "5", "SGVsbG8sIHlvd5B3b3JsZCE=", "jorge@techelp.com",
+    When A Post Request is sent with values "Jorge", "Diaz", "948383823", "Paruro 114", "Lima", "5", "SGVsbG8sIHlvd5B3b3JsZCE=", "jorge@techelp.com",
+    Then A Response is received with Status 400
+    And A Message is included in Response Body with values "Not all constraints satisfied for Technical: An Technical with the same name already exists."
