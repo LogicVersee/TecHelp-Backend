@@ -42,3 +42,18 @@ Feature: Items Adding
     When A Post Request is sent with values 1, "Bateria Xiaomi 3500", 10, 80
     Then A Response is received with Status 400
     And A Message is included in Response Body with values "Not all constraints satisfied for Item: An Item with the same name already exists."
+
+
+
+Feature: Tasks Adding
+  As an Developer
+  I want to add Tasks through API
+  So that It can be available to applications.
+  Background:
+    Given The Endpoint "https://techelp-api.zeabur.app/api/v1/task" is available
+
+  @task-adding
+  Scenario: Add Task
+    When A Post Request is sent with values "Juan Gonzales", "9382828822", "948383823", "La camara de mi celular no funciona", "Xiaomi Camera 35", "2023-11-03T05:00:00:000+00:00", "50", 1
+    Then A Response is received with Status 200
+    And An Task Resource is included in Response Body, with values "Juan Gonzales", "9382828822", "948383823", "La camara de mi celular no funciona", "Xiaomi Camera 35", "2023-11-03T05:00:00:000+00:00", "50", 1
