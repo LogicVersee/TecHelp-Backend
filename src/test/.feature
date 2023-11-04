@@ -18,3 +18,27 @@ Feature: Technicals Adding
     When A Post Request is sent with values "Jorge", "Diaz", "948383823", "Paruro 114", "Lima", "5", "SGVsbG8sIHlvd5B3b3JsZCE=", "jorge@techelp.com",
     Then A Response is received with Status 400
     And A Message is included in Response Body with values "Not all constraints satisfied for Technical: An Technical with the same name already exists."
+
+
+
+
+Feature: Items Adding
+  As a Developer
+  I want to add Items in the technician's inventory through API
+  So that It can be available to applications.
+
+  Background:
+    Given The Endpoint "https://techelp-api.zeabur.app/api/v1/inventory/" is available
+
+  @item-adding
+  Scenario: Add Item in the technician inventory
+    When A Post Request is sent with values 1, "Bateria Xiaomi 3500", 10, 80
+    Then A Response is received with Status 200
+    And An Items Resource is included in Response Body, with values 1, "Bateria Xiaomi 3500", 10, 80
+
+  @item-duplicated
+  Scenario: Add Item with existing Name
+    Given An Items Resource with values 1, "Bateria Xiaomi 3500", 10, 80 is already stored
+    When A Post Request is sent with values 1, "Bateria Xiaomi 3500", 10, 80
+    Then A Response is received with Status 400
+    And A Message is included in Response Body with values "Not all constraints satisfied for Item: An Item with the same name already exists."
