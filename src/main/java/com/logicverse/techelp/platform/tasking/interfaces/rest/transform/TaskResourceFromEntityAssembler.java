@@ -7,6 +7,6 @@ public class TaskResourceFromEntityAssembler {
 
     public static TaskResource toResourceFromEntity (Task entity){
         return new TaskResource(entity.getClientName(), entity.getClientPhoneName(),
-                entity.getClientProblem(),entity.getComponentItem(),entity.getDeliveryDate(), entity.getIncome());
+                entity.getClientProblem(),entity.getComponentItem(),entity.getDeliveryDate(), entity.getIncome(), entity.getTechnical().getId());
     }
 }

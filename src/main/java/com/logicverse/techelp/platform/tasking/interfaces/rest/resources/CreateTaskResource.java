@@ -13,8 +13,7 @@ public record CreateTaskResource(
 
         Date delivery_date,
 
-        String income
-
-
+        String income,
+        Long technicalId
 ) {
 }

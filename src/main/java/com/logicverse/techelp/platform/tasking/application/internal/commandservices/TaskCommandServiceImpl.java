@@ -1,6 +1,7 @@
 package com.logicverse.techelp.platform.tasking.application.internal.commandservices;
 
 import com.logicverse.techelp.platform.monitoring.domain.model.valueobjects.TechnicianId;
+import com.logicverse.techelp.platform.repairing.infrastructure.persistence.jpa.repositories.TechnicalRepository;
 import com.logicverse.techelp.platform.tasking.domain.model.commands.CreateTaskCommand;
 import com.logicverse.techelp.platform.tasking.domain.model.entities.Task;
 import com.logicverse.techelp.platform.tasking.domain.model.queries.GetTaskByIdQuery;
@@ -14,25 +15,20 @@ import java.util.Optional;
 @Service
 public class TaskCommandServiceImpl implements TaskCommandService {
     private TaskRepository taskRepository;
+    private TechnicalRepository technicalRepository;
 
-    public TaskCommandServiceImpl(TaskRepository taskRepository){
+    public TaskCommandServiceImpl(TaskRepository taskRepository, TechnicalRepository technicalRepository){
         this.taskRepository=taskRepository;
+        this.technicalRepository = technicalRepository;
     }
 
     @Override
     public  Long handle(CreateTaskCommand command){
-        var technicianId =new TechnicianId();
-        var task =this.taskRepository.findById(technicianId.technicianId());
-
-        if(task.isEmpty()){
-            var newTask = new Task(command.client_name(),command.client_phone(),command.problem(),
-                    command.component(),command.delivery_date(),command.income());
-            this.taskRepository.save(newTask);
-
-            return newTask.getId();
-        }
-
-        throw new IllegalArgumentException("Task already exists");
+        var technical = technicalRepository.findById(command.technicalId());
+        if (technical.isEmpty()) throw new IllegalArgumentException("Provided technical does not exist");
+        var newTask = new Task(command.client_name(),command.client_phone(),command.problem(),
+                command.component(),command.delivery_date(),command.income(), technical.get());
+        this.taskRepository.save(newTask);
+        return newTask.getId();
     }
-
 }

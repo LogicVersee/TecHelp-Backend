@@ -6,6 +6,7 @@ import com.logicverse.techelp.platform.repairing.domain.model.queries.GetTechnic
 import com.logicverse.techelp.platform.repairing.infrastructure.persistence.jpa.repositories.TechnicalRepository;
 import com.logicverse.techelp.platform.tasking.domain.model.entities.Task;
 import com.logicverse.techelp.platform.tasking.domain.model.queries.GetTaskByIdQuery;
+import com.logicverse.techelp.platform.tasking.domain.model.queries.GetTaskByTechnicalIdQuery;
 import com.logicverse.techelp.platform.tasking.domain.services.TaskQueryService;
 import com.logicverse.techelp.platform.tasking.infrestructure.persistence.jpa.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,12 @@ import java.util.Optional;
 public class TaskQueryServiceImpl implements TaskQueryService {
 
     private TaskRepository taskRepository;
+    private TechnicalRepository technicalRepository;
 
-    public TaskQueryServiceImpl(TaskRepository taskRepository) {
+    public TaskQueryServiceImpl(TaskRepository taskRepository, TechnicalRepository technicalRepository) {
+
         this.taskRepository = taskRepository;
+        this.technicalRepository = technicalRepository;
     }
 
     @Override
@@ -28,6 +32,14 @@ public class TaskQueryServiceImpl implements TaskQueryService {
 
     @Override
     public List<Task> handle(){return taskRepository.findAll();
+    }
+
+    @Override
+    public List<Task> handle(GetTaskByTechnicalIdQuery query) {
+        var technical = technicalRepository.findById(query.technicianId());
+        if (technical.isEmpty()) throw new IllegalArgumentException("Technical with" + query.technicianId() + "does not exist");
+        var tasksByTechnicalId = taskRepository.findBytechnical(technical.get());
+        return tasksByTechnicalId;
     }
 
 

@@ -1,6 +1,7 @@
 package com.logicverse.techelp.platform.tasking.interfaces.rest;
 
 import com.logicverse.techelp.platform.tasking.domain.model.queries.GetTaskByIdQuery;
+import com.logicverse.techelp.platform.tasking.domain.model.queries.GetTaskByTechnicalIdQuery;
 import com.logicverse.techelp.platform.tasking.domain.services.TaskCommandService;
 import com.logicverse.techelp.platform.tasking.domain.services.TaskQueryService;
 import com.logicverse.techelp.platform.tasking.interfaces.rest.resources.CreateTaskResource;
@@ -41,6 +42,16 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<Stream<TaskResource>> getTasks() {
         var tasks = taskQueryService.handle();
+        if (tasks.isEmpty()) return ResponseEntity.badRequest().build();
+        var tasksResource = tasks.stream().map(task -> {
+            return TaskResourceFromEntityAssembler.toResourceFromEntity(task);
+        });
+        return ResponseEntity.ok(tasksResource);
+    }
+
+    @GetMapping("/{technicalId}")
+    public ResponseEntity<Stream<TaskResource>> getTasksByTechnicalId(@PathVariable Long technicalId) {
+        var tasks = taskQueryService.handle(new GetTaskByTechnicalIdQuery(technicalId));
         if (tasks.isEmpty()) return ResponseEntity.badRequest().build();
         var tasksResource = tasks.stream().map(task -> {
             return TaskResourceFromEntityAssembler.toResourceFromEntity(task);
