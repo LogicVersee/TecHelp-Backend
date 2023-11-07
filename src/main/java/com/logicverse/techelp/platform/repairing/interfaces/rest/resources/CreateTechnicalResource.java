@@ -1,6 +1,7 @@
 package com.logicverse.techelp.platform.repairing.interfaces.rest.resources;
 
 public record CreateTechnicalResource(
+
         String name,
         String lastName,
         String phone,
