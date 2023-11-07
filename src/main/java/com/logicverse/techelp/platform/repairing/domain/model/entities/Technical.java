@@ -67,4 +67,5 @@ public class Technical extends AuditableModel {
     public String getEmailAddress(){
         return this.email.email();
     }
+    
 }
