@@ -5,10 +5,12 @@ import com.logicverse.techelp.platform.subscription.domain.model.queries.GetAllM
 import com.logicverse.techelp.platform.subscription.domain.model.queries.GetMembershipByIdQuery;
 import com.logicverse.techelp.platform.subscription.domain.services.MembershipQueryService;
 import com.logicverse.techelp.platform.subscription.infrastructure.persistence.jpa.repositories.MembershipRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class MembershipQueryServiceImpl implements MembershipQueryService {
 
     private final MembershipRepository membershipRepository;
