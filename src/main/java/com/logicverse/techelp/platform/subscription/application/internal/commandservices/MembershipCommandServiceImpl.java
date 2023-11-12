@@ -22,7 +22,7 @@ public class MembershipCommandServiceImpl implements MembershipCommandService {
         if (membershipRepository.existsByTitle(command.title())){
             throw new IllegalArgumentException("Membership with same title already exists");
         }
-        var membership = new Membership(command.title(), command.description());
+        var membership = new Membership(command.title(), command.description(), command.type(), command.cost());
         membershipRepository.save(membership);
         return membership.getId();
     }
@@ -33,7 +33,7 @@ public class MembershipCommandServiceImpl implements MembershipCommandService {
         var membershipToUpdate = membershipRepository.findById(command.id()).get();
         if(membershipRepository.existsByTitleAndIdIsNot(command.title(), command.id()))
             throw new IllegalArgumentException("Membership with same title already exists");
-        var updatedMembership = membershipRepository.save(membershipToUpdate.updateInformation(command.title(), command.description()));
+        var updatedMembership = membershipRepository.save(membershipToUpdate.updateInformation(command.title(), command.description(), command.type(), command.cost()));
         return Optional.of(updatedMembership);
     }
 

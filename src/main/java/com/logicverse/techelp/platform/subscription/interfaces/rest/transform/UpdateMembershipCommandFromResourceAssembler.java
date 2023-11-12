@@ -5,7 +5,7 @@ import com.logicverse.techelp.platform.subscription.interfaces.rest.resources.Up
 
 public class UpdateMembershipCommandFromResourceAssembler {
 
-    public static UpdateMembershipCommand toCommmandFromResource(Long membershipId, UpdateMembershipResource resource){
-        return new UpdateMembershipCommand(membershipId, resource.title(), resource.description());
+    public static UpdateMembershipCommand toCommandFromResource(Long membershipId, UpdateMembershipResource resource){
+        return new UpdateMembershipCommand(membershipId, resource.title(), resource.description(),resource.type(),resource.cost());
     }
 }

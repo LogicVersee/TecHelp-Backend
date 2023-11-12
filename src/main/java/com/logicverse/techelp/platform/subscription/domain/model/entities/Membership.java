@@ -21,21 +21,28 @@ public class Membership {
 
     private String description;
 
+    private Integer type;
+
+    private Long cost;
 
     public Membership() {
         this.title = Strings.EMPTY;
         this.description = Strings.EMPTY;
     }
-    public Membership(String title, String description) {
+    public Membership(String title, String description, Integer type, Long cost) {
         this();
         this.title = title;
         this.description = description;
+        this.type = type;
+        this.cost = cost;
     }
 
 
-    public Membership updateInformation(String title, String description) {
+    public Membership updateInformation(String title, String description, Integer type, Long cost) {
         this.title = title;
         this.description = description;
+        this.type = type;
+        this.cost = cost;
         return this;
     }
 

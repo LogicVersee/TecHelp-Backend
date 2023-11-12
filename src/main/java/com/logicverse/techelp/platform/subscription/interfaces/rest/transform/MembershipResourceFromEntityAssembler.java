@@ -6,6 +6,6 @@ import com.logicverse.techelp.platform.subscription.interfaces.rest.resources.Me
 public class MembershipResourceFromEntityAssembler {
 
     public static MembershipResource toResourceFromEntity(Membership entity) {
-        return new MembershipResource(entity.getId(), entity.getTitle(), entity.getDescription());
+        return new MembershipResource(entity.getId(), entity.getTitle(), entity.getDescription(), entity.getType(),entity.getCost());
     }
 }

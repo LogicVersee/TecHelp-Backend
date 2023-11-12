@@ -4,6 +4,6 @@ import com.logicverse.techelp.platform.subscription.interfaces.rest.resources.Cr
 
 public class CreateMembershipCommandFromResourceAssembler {
     public static CreateMembershipResource toCommandFromResource(CreateMembershipResource resource){
-        return new CreateMembershipResource(resource.title(), resource.description());
+        return new CreateMembershipResource(resource.title(), resource.description(), resource.type(), resource.cost());
     }
 }

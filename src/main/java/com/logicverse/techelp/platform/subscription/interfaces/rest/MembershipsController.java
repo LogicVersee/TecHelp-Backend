@@ -36,7 +36,7 @@ public class MembershipsController {
 
     @PostMapping
     public ResponseEntity<MembershipResource> createMembership(@RequestBody CreateMembershipResource createMembershipResource){
-        var CreateMembershipCommand = new CreateMembershipCommand(createMembershipResource.title(), createMembershipResource.description());
+        var CreateMembershipCommand = new CreateMembershipCommand(createMembershipResource.title(), createMembershipResource.description(), createMembershipResource.type(),createMembershipResource.cost());
         var membershipId = membershipCommandService.handle(CreateMembershipCommand);
         if (membershipId == 0L){
             return ResponseEntity.badRequest().build();
@@ -68,7 +68,7 @@ public class MembershipsController {
 
     @PutMapping("/{membershipId}")
     public ResponseEntity<MembershipResource> updateMembership(@PathVariable Long membershipId, @RequestBody UpdateMembershipResource updateMembershipResource){
-        var updateMembershipCommand = UpdateMembershipCommandFromResourceAssembler.toCommmandFromResource(membershipId, updateMembershipResource);
+        var updateMembershipCommand = UpdateMembershipCommandFromResourceAssembler.toCommandFromResource(membershipId, updateMembershipResource);
         var updatedMembership = membershipCommandService.handle(updateMembershipCommand);
         if(updatedMembership.isEmpty()){
             return ResponseEntity.badRequest().build();
