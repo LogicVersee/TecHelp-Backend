@@ -1,4 +1,4 @@
-package com.logicverse.techelp.platform.iam.infrastructure.tokens.jwt.services;
+package com.logicverse.techelp.platform.iam.infrastructure.tokens.jwt;
 
 import com.logicverse.techelp.platform.iam.application.internal.outboundservices.tokens.TokenService;
 

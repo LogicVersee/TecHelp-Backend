@@ -1,7 +1,7 @@
 package com.logicverse.techelp.platform.iam.application.internal.commandservices;
 
-import com.logicverse.techelp.platform.iam.internal.outboundservices.hashing.HashingService;
-import com.logicverse.techelp.platform.iam.internal.outboundservices.tokens.TokenService;
+import com.logicverse.techelp.platform.iam.application.internal.outboundservices.hashing.HashingService;
+import com.logicverse.techelp.platform.iam.application.internal.outboundservices.tokens.TokenService;
 import com.logicverse.techelp.platform.iam.domain.model.aggregates.User;
 import com.logicverse.techelp.platform.iam.domain.model.commands.SignUpCommand;
 import com.logicverse.techelp.platform.iam.domain.model.commands.SignInCommand;
