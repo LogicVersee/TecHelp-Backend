@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ComponentItemRepository extends JpaRepository<ComponentItem,Long> {
     List<ComponentItem> findComponentItemByDashBoard(DashBoard dashBoard);
+    boolean deleteByDashBoard(DashBoard dashBoard);
 }

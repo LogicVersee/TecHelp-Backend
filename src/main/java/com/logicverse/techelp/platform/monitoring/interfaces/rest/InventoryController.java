@@ -1,12 +1,15 @@
 package com.logicverse.techelp.platform.monitoring.interfaces.rest;
 
+import com.logicverse.techelp.platform.monitoring.domain.model.commands.UpdateComponentItemCommand;
 import com.logicverse.techelp.platform.monitoring.domain.model.queries.GetComponentByDashBoardIdQuery;
 import com.logicverse.techelp.platform.monitoring.domain.services.ComponentItemCommandService;
 import com.logicverse.techelp.platform.monitoring.domain.services.ComponentItemQueryService;
 import com.logicverse.techelp.platform.monitoring.interfaces.rest.resources.CreateInventoryResource;
 import com.logicverse.techelp.platform.monitoring.interfaces.rest.resources.InventoryResource;
+import com.logicverse.techelp.platform.monitoring.interfaces.rest.resources.UpdateInventoryResource;
 import com.logicverse.techelp.platform.monitoring.interfaces.rest.transform.CreateInventoryFromResourceAssembler;
 import com.logicverse.techelp.platform.monitoring.interfaces.rest.transform.InventoryResourceFromEntityAssembler;
+import com.logicverse.techelp.platform.monitoring.interfaces.rest.transform.UpdateInventoryFromResourceAssembler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +48,22 @@ public class InventoryController {
 
         var inventory = InventoryResourceFromEntityAssembler.toResourceFromEntity(components,technicalId);
         return ResponseEntity.ok(inventory);
+    }
+
+    @PutMapping("/{technicianId}")
+    public ResponseEntity<InventoryResource> updateInventoryByTechnicianId(@RequestBody UpdateInventoryResource resource, @PathVariable Long technicianId) {
+        var updateCommand = new UpdateComponentItemCommand(technicianId);
+        this.componentItemCommandService.handle(updateCommand);
+
+        var commands = UpdateInventoryFromResourceAssembler.toCommandFrom(resource, technicianId);
+        commands.stream().forEach(command -> {
+            //update components
+            componentItemCommandService.handle(command);
+        });
+        var query = new GetComponentByDashBoardIdQuery(technicianId);
+        var componentByQuery = componentItemQueryService.handle(query);
+
+        var inventory = InventoryResourceFromEntityAssembler.toResourceFromEntity(componentByQuery, technicianId);
+        return new ResponseEntity<>(inventory, HttpStatus.CREATED);
     }
 }
