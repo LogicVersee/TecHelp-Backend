@@ -49,6 +49,7 @@ public class Request extends AuditableModel {
         this.day=new day(day);
         this.problem=new problem(problem);
         this.specification=new specification(specification);
+        this.hour=new hour(hour);
     }
     public Request(){}
 
