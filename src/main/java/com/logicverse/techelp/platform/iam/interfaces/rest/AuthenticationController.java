@@ -9,6 +9,13 @@ import com.logicverse.techelp.platform.iam.interfaces.rest.transform.Authenticat
 import com.logicverse.techelp.platform.iam.interfaces.rest.transform.SignInCommandFromResourceAssembler;
 import com.logicverse.techelp.platform.iam.interfaces.rest.transform.SignUpCommandFromResourceAssembler;
 import com.logicverse.techelp.platform.iam.interfaces.rest.transform.UserResourceFromEntityAssembler;
+import com.logicverse.techelp.platform.repairing.domain.model.queries.GetTechnicalByIdQuery;
+import com.logicverse.techelp.platform.repairing.domain.services.TechnicalCommandService;
+import com.logicverse.techelp.platform.repairing.domain.services.TechnicalQueryService;
+import com.logicverse.techelp.platform.repairing.interfaces.rest.resources.CreateTechnicalResource;
+import com.logicverse.techelp.platform.repairing.interfaces.rest.resources.TechnicalResource;
+import com.logicverse.techelp.platform.repairing.interfaces.rest.transform.CreateTechnicalFromResourceAssembler;
+import com.logicverse.techelp.platform.repairing.interfaces.rest.transform.TechnicalResourceFromEntityAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,9 +30,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Authentication", description = "Authentication Management Endpoints")
 public class AuthenticationController {
     private final UserCommandService userCommandService;
+    private final TechnicalQueryService technicalQueryService;
+    private final TechnicalCommandService technicalCommandService;
 
-    public AuthenticationController(UserCommandService userCommandService) {
+    public AuthenticationController(UserCommandService userCommandService,TechnicalQueryService technicalQueryService, TechnicalCommandService technicalCommandService) {
         this.userCommandService = userCommandService;
+        this.technicalQueryService = technicalQueryService;
+        this.technicalCommandService = technicalCommandService;
     }
 
     @PostMapping("/sign-in")
@@ -48,6 +59,17 @@ public class AuthenticationController {
         }
         var userResource = UserResourceFromEntityAssembler.toResourceFromEntity(user.get());
         return new ResponseEntity<>(userResource, HttpStatus.CREATED);
+    }
+    @PostMapping("/sign-up/technical")
+    public ResponseEntity<TechnicalResource> createTechnical(@RequestBody CreateTechnicalResource resource) {
+        var command = CreateTechnicalFromResourceAssembler.toCommandFrom(resource);
+        var technicalId = technicalCommandService.handle(command);
+
+        var query = new GetTechnicalByIdQuery(technicalId);
+        var technicalByQuery = technicalQueryService.handle(query);
+
+        var technicalResource = TechnicalResourceFromEntityAssembler.toResourceFromEntity(technicalByQuery.get());
+        return new ResponseEntity<>(technicalResource, HttpStatus.CREATED);
     }
 
 }
