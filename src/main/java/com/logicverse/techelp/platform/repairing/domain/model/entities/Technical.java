@@ -29,7 +29,7 @@ public class Technical extends AuditableModel {
     @Getter
     private String experience;
     @Getter
-    private byte[] photo;
+    private String photo;
     @Embedded
     private EmailAddress email;
     @Getter
@@ -42,7 +42,7 @@ public class Technical extends AuditableModel {
     @OneToMany (mappedBy = "technical")
     private List<Task> tasks;
 
-    public Technical(String name, String lastName, String phone, String address, String city,String experience, byte[] photo, String email, String password,
+    public Technical(String name, String lastName, String phone, String address, String city,String experience, String photo, String email, String password,
                      String description){
         this.name = new PersonName(name,lastName);
         this.phone = phone;

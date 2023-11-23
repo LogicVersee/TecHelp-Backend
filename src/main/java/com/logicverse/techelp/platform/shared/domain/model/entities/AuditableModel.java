@@ -18,7 +18,6 @@ public class AuditableModel {
     @Column(nullable = false, updatable = false)
     private Date createdAt;
     @LastModifiedDate
-    @Column(nullable = false)
     private Date updatedAt;
 
 }

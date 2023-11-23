@@ -6,7 +6,7 @@ public record TechnicalResource(
         String address,
         String city,
         String experience,
-        byte[] photo,
+        String photo,
         String description,
         String ranking
 ) {
