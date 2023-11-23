@@ -20,3 +20,4 @@ public class TechelpCenterPlatformApplication implements WebMvcConfigurer {
                 .allowedHeaders("*");}
 
 }
+

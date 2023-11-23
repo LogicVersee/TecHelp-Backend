@@ -6,6 +6,7 @@ import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 
 import static io.github.encryptorcode.pluralize.Pluralize.pluralize;
 
+
 public class SnakeCasePhysicalNamingStrategy implements PhysicalNamingStrategy {
     @Override
     public Identifier toPhysicalCatalogName(Identifier identifier, JdbcEnvironment jdbcEnvironment) {
