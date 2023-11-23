@@ -47,4 +47,13 @@ public class TechnicalController {
         });
         return ResponseEntity.ok(technicalsResource);
     }
+
+    @GetMapping("/{technicianId}")
+    public ResponseEntity<TechnicalResource> getTechnicianById(@PathVariable Long technicianId){
+        var query = new GetTechnicalByIdQuery(technicianId);
+        var technician = technicalQueryService.handle(query);
+
+        var returnTechnician = TechnicalResourceFromEntityAssembler.toResourceFromEntity(technician.get());
+        return ResponseEntity.ok(returnTechnician);
+    }
 }
