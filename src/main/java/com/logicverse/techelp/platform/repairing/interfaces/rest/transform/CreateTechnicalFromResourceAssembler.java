@@ -9,6 +9,6 @@ import java.util.Base64;
 public class CreateTechnicalFromResourceAssembler {
     public static CreateTechnicalCommand toCommandFrom(CreateTechnicalResource resource){
         return new CreateTechnicalCommand(resource.name(),resource.lastName(),resource.phone(),resource.address(),
-                resource.city(),resource.experience(), Base64.getDecoder().decode(resource.photo()),resource.email(),resource.password(),resource.description());
+                resource.city(),resource.experience(), resource.photo(),resource.email(),resource.password(),resource.description());
     }
 }
